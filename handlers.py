@@ -20,7 +20,7 @@ async def cmd_start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         await update.message.reply_text("Нет доступа.")
         return
     await update.message.reply_text(
-        "Привет! Я математический ассистент на базе Gemini 2.5 Pro.\n\n"
+        "Привет! Я математический ассистент на базе Gemini 2.0 Flash.\n\n"
         "📝 Отправь задачу — решу пошагово.\n"
         "🔍 Спроси про тему — объясню и найду информацию.\n"
         "📚 Попроси рассказать про раздел математики — дам обзор.\n\n"
