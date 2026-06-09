@@ -7,14 +7,14 @@ from handlers import init_allowed, cmd_start, cmd_help, cmd_history, cmd_clear, 
 load_dotenv()
 
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 USER_ID_1 = os.getenv("USER_ID_1")
 USER_ID_2 = os.getenv("USER_ID_2")
 
-if not all([TELEGRAM_TOKEN, OPENAI_API_KEY, USER_ID_1, USER_ID_2]):
-    raise ValueError("Заполни все переменные в .env: TELEGRAM_TOKEN, OPENAI_API_KEY, USER_ID_1, USER_ID_2")
+if not all([TELEGRAM_TOKEN, GEMINI_API_KEY, USER_ID_1, USER_ID_2]):
+    raise ValueError("Заполни все переменные: TELEGRAM_TOKEN, GEMINI_API_KEY, USER_ID_1, USER_ID_2")
 
-init_client(OPENAI_API_KEY)
+init_client(GEMINI_API_KEY)
 init_allowed(USER_ID_1, USER_ID_2)
 
 app = ApplicationBuilder().token(TELEGRAM_TOKEN).build()
