@@ -38,7 +38,10 @@ async def ask_text(user_text: str) -> str:
     response = await _client.aio.models.generate_content(
         model="gemini-2.0-flash",
         contents=contents,
-        config=types.GenerateContentConfig(system_instruction=SYSTEM_PROMPT),
+        config=types.GenerateContentConfig(
+            system_instruction=SYSTEM_PROMPT,
+            tools=[types.Tool(google_search=types.GoogleSearch())],
+        ),
     )
     answer = response.text
     add_message("assistant", answer)
