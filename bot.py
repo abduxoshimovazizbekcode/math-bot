@@ -1,4 +1,5 @@
 import os
+import asyncio
 from dotenv import load_dotenv
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters
 from openai_client import init_client
@@ -27,4 +28,5 @@ app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text))
 
 if __name__ == "__main__":
     print("Бот запущен...")
+    asyncio.set_event_loop(asyncio.new_event_loop())
     app.run_polling()
