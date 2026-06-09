@@ -1,5 +1,7 @@
 import os
 import asyncio
+import threading
+from http.server import HTTPServer, BaseHTTPRequestHandler
 from dotenv import load_dotenv
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters
 from openai_client import init_client
@@ -26,7 +28,25 @@ app.add_handler(CommandHandler("history", cmd_history))
 app.add_handler(CommandHandler("clear", cmd_clear))
 app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text))
 
+
+class HealthHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.end_headers()
+        self.wfile.write(b"OK")
+
+    def log_message(self, format, *args):
+        pass
+
+
+def run_health_server():
+    port = int(os.getenv("PORT", 10000))
+    server = HTTPServer(("0.0.0.0", port), HealthHandler)
+    server.serve_forever()
+
+
 if __name__ == "__main__":
     print("Бот запущен...")
+    threading.Thread(target=run_health_server, daemon=True).start()
     asyncio.set_event_loop(asyncio.new_event_loop())
     app.run_polling()
