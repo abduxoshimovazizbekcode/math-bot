@@ -36,7 +36,7 @@ async def ask_text(user_text: str) -> str:
         contents.append(types.Content(role=role, parts=[types.Part(text=content)]))
 
     response = await _client.aio.models.generate_content(
-        model="gemini-1.5-flash-latest",
+        model="gemini-2.5-flash",
         contents=contents,
         config=types.GenerateContentConfig(
             system_instruction=SYSTEM_PROMPT,
